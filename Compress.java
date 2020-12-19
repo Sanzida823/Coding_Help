@@ -1,5 +1,7 @@
 package VSM;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,21 +21,24 @@ public class Compress {
 
     //   String binaryString ="";
     public void compress() throws IOException {
-
-        System.out.println("pls write thefilename");
+        try{
+        System.out.println("write the file name");
         String name = scan.next();
         String s = "";
         String test = "";
-
+      
         try {
 
             test = new String(Files.readAllBytes(Paths.get("H://java//" + name))); //first read the java file as a string
-        } //first read the java file as a string
-        catch (IOException e) {
+        } catch (IOException e) {
 
             e.printStackTrace();
         }
-
+        File old = new File("H:\\java\\" + name);
+        File newfile = new File("H:\\java\\" + "hfm_" + name);
+        old.renameTo(newfile);
+        //  old.delete();
+      //  System.out.println(newfile);
         Encode ob = new Encode();
         s = ob.encode(test);
         BitSet bitset = new BitSet(s.length());
@@ -46,7 +51,9 @@ public class Compress {
             bitcounter++;
         }
 
-        FileOutputStream t = new FileOutputStream(("H://java//" + name), false);
+        FileOutputStream t = new FileOutputStream(newfile, false);
+      
+
         t.write(bitset.toByteArray());
         System.out.println("file successfully compressed");
 
@@ -57,10 +64,16 @@ public class Compress {
             } else {
                 binaryString += "0";
             }
-        }
-        System.out.println("" + bitset.length());
-        System.out.println("    " + binaryString);
+       } 
+    
+    
+    
+   } catch(FileNotFoundException e){
+            System.out.println("File not found");
+   } } 
+      //  System.out.println("" + bitset.length());
+      //  System.out.println("    " + binaryString);
 
     }
 
-}
+
