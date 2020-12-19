@@ -9,6 +9,7 @@ public class console {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         while (true) {
+            System.out.println("------------------------");
             System.out.println("ENTER YOUR CHOICE");
             Scanner scan = new Scanner(System.in);
             String choice = scan.next();
